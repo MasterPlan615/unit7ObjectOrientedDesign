@@ -5,11 +5,16 @@ public class IDCard extends Card
    public IDCard( String n, String id )
    {
        super( n );
-       idNumber = id;
+       this.idNumber = id;
    }
    
    public String getID()
    {
-       return "ID Number: " + idNumber;
+       return this.idNumber;
+   }
+   
+   public String format()
+   {
+       return super.format() + ", ID Number: " + this.idNumber;
    }
 }
