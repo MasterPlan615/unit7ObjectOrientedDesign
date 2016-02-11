@@ -1,37 +1,24 @@
 import java.util.Scanner;
 
-public class Person
+public class Person implements Comparable<Person>
 {
     private String name;
     
-    public static void main( String[] args )
+    public Person( String name )
     {
-        Scanner scan = new Scanner(System.in);
-        Object first = null;
-        Object last = null;
-        
-        for( int i = 0; i < 10; i++ )
-        {
-            System.out.println( "Please enter the person's name: " );
-            String check = scan.next();
-            Object person = new Object(check);
-        }
-        
-        System.out.println( "First: " + first + " Last: " + last );
+        this.name = name;
     }
     
-    public int compareTo( Object otherObject )
+    public String getName()
     {
-        if(this.equals(otherObject))
-        {
-            return 0;
-        }
-        else if(  otherObject)
-        {
-            return 1;
-        }
-        
+        return name;
     }
     
-    
+    public int compareTo( Person other )
+    {
+        String myName = this.name;
+        String otherName = other.name;
+        
+        return myName.compareTo(otherName);
+    }
 }
