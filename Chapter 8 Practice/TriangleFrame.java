@@ -1,33 +1,17 @@
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 
-/**
- * Write a description of class TriangleFrame here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class TriangleFrame
+public class TriangleFrame extends JFrame
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class TriangleFrame
-     */
+    private static final int FRAME_WIDTH = 400;
+    private static final int FRAME_HEIGHT = 400;
+    
+    private TriangleComponent scene;
+    
     public TriangleFrame()
     {
-        // initialise instance variables
-        x = 0;
-    }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+        add( scene );
+        setSize( FRAME_WIDTH, FRAME_HEIGHT );
     }
 }
