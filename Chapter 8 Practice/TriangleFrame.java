@@ -11,9 +11,9 @@ public class TriangleFrame extends JFrame
     
     public TriangleFrame()
     {
-        setSize( FRAME_WIDTH, FRAME_HEIGHT );
+        this.setSize( FRAME_WIDTH, FRAME_HEIGHT );
         
         TriangleComponent scene = new TriangleComponent();
-        add( scene );
+        this.add( scene );
     }
 }

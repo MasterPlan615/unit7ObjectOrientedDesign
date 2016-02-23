@@ -20,7 +20,7 @@ public class TriangleComponent extends JComponent
     public TriangleComponent()
     {
         MouseListener listener = new MouseClickListener();
-        addMouseListener( listener );
+        this.addMouseListener( listener );
     }
 
     public void addPoint( int x, int y )
@@ -32,21 +32,21 @@ public class TriangleComponent extends JComponent
             this.pnt_y = y;
             //reset();
             this.cur_pnt++;
-            repaint();
+            this.repaint();
         }
         else if( this.cur_pnt == 1 )
         {
             this.pnt_x2 = x;
             this.pnt_y2 = y;
             this.cur_pnt++;
-            repaint();
+            this.repaint();
         }
         else if( this.cur_pnt == 2 )
         {
             this.pnt_x3 = x;
             this.pnt_y3 = y;
             this.cur_pnt++;
-            repaint();
+            this.repaint();
         }
     }
 

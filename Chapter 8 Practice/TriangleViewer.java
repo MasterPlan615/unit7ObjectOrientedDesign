@@ -7,6 +7,6 @@ public class TriangleViewer
     {
         JFrame frame = new TriangleFrame();
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setVisible(true);
+        frame.setVisible( true );
     }
 }
