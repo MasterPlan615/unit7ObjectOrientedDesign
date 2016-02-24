@@ -6,28 +6,30 @@ import javax.swing.JColorChooser;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import java.awt.Canvas;
 
 
-public class ControlPanel
+public class ControlPanel extends JPanel
 {
     private JButton pick_color;
     private JButton add_circle;
     private JButton add_square;
-    private JPanel con_pan;
-    private Canvas canvas;
+    private JPanel cur_color;
+    private DrawingPanel canvas;
     
-    public ControlPanel()
+    public ControlPanel( DrawingPanel draw )
     {
-        this.con_pan = new JPanel();
-        this.canvas = new Canvas();
+        this.cur_color = new JPanel();
+        this.canvas = draw;
+        
         this.pick_color = new JButton( "Pick Color" );
         this.add_circle = new JButton( "Add Circle" );
         this.add_square = new JButton( "Add Square" );
         
-        this.con_pan.add( this.pick_color );
-        this.con_pan.add( this.add_circle );
-        this.con_pan.add( this.add_square );
+        //this.canvas.getColor();
+        
+        this.add( this.pick_color );
+        this.add( this.add_circle );
+        this.add( this.add_square );
         
         MouseListener pick_color_listener = new MouseActionListener();
         this.pick_color.addMouseListener( pick_color_listener );

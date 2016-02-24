@@ -1,7 +1,7 @@
 import javax.swing.JPanel;
 
 
-public class DrawingPanel
+public class DrawingPanel extends JPanel
 {
     
 }

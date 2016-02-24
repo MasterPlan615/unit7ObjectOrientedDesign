@@ -1,4 +1,6 @@
 import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
 
 public class DrawingEditor extends JFrame
@@ -11,13 +13,15 @@ public class DrawingEditor extends JFrame
     {
         this.setSize( FRAME_WIDTH, FRAME_HEIGHT );
         
-        ControlPanel control_panel = new ControlPanel();
-        this.add( control_panel );
+        DrawingPanel canvas = new DrawingPanel();
+        this.setLayout( new BorderLayout() );
+        this.add( canvas , BorderLayout.CENTER );
         
-        DrawingPanel drawing_panel = new DrawingPanel();
-        this.add( drawing_panel );
+        JPanel controls = new ControlPanel( canvas );
+        this.setLayout( new BorderLayout() );
+        this.add( controls , BorderLayout.SOUTH );
         
-        start.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         this.setVisible( true );
     }
     
