@@ -1,6 +1,5 @@
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -13,6 +12,7 @@ public class ControlPanel extends JPanel
     private JButton add_square;
     private JPanel cur_color;
     private DrawingPanel canvas;
+    
     
     public ControlPanel( DrawingPanel draw )
     {
@@ -39,6 +39,7 @@ public class ControlPanel extends JPanel
         this.add_square.addMouseListener( add_square_listener );
     }
     
+    
     class MousePCListener implements MouseListener
     {
         public void mouseClicked( MouseEvent event )
@@ -55,6 +56,7 @@ public class ControlPanel extends JPanel
         public void mouseExited( MouseEvent event ) {}
     }
     
+    
     class MouseACListener implements MouseListener
     {
         public void mouseClicked( MouseEvent event )
@@ -70,6 +72,7 @@ public class ControlPanel extends JPanel
 
         public void mouseExited( MouseEvent event ) {}
     }
+    
     
     class MouseASListener implements MouseListener
     {

@@ -16,6 +16,12 @@ public abstract class Shape
         this.color = col;
     }
     
+    public Shape( Point2D.Double cen, Color col )
+    {
+        this.center = cen;
+        this.color = col;
+    }
+    
     public Point2D.Double getCenter()
     {
         return this.center;

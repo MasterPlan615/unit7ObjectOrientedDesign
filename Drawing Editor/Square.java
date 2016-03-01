@@ -1,33 +1,26 @@
+import java.awt.geom.Point2D;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-/**
- * Write a description of class Square here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
 public class Square extends Shape
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Square
-     */
-    public Square()
+    private Point2D.Double center;
+    private Color color;
+    
+    public Square( Point2D.Double cen, Color col )
     {
-        // initialise instance variables
-        x = 0;
+        super.center = cen;
+        super.color = col;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
+    
+    public Point2D.Double getCenter()
     {
-        // put your code here
-        return x + y;
+        return super.center;
+    }
+    
+    public void move( double x, double y )
+    {
+        super.center.setLocation( x, y );
     }
 }
