@@ -8,6 +8,7 @@ import javax.swing.JColorChooser;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 
 public class DrawingPanel extends JPanel
@@ -15,20 +16,33 @@ public class DrawingPanel extends JPanel
     private ArrayList< Shape > list_shapes;
     private Shape active_shape;
     private boolean isPicked;
+    private boolean isMoving;
+    private boolean isStrech;
     private JColorChooser color_chooser;
     private Dimension dimen;
     private Point2D.Double center_screen;
-    private MouseListener shape_listener;
+    private MouseListener draw_listener;
+    private MouseMotionListener motion_listener;
     
     
     public DrawingPanel()
     {
         this.setBackground( Color.WHITE );
+        
         this.isPicked = false;
+        this.isMoving = false;
+        this.isStrech = false;
+        
         this.color_chooser = new JColorChooser( Color.BLACK );
-        this.dimen = new Dimension( 750, 400 );
-        this.center_screen = new Point2D.Double( (750/2), (400/2) );
-        this.shape_listener = new MouseShapeListener();
+        this.dimen = new Dimension( 400, 400 );
+        
+        this.draw_listener = new MouseDrawListener();
+        this.addMouseListener( draw_listener );
+        
+        this.motion_listener = new MouseMotListener();
+        this.addMouseMotionListener( motion_listener );
+        
+        this.list_shapes = new ArrayList< Shape >();
     }
     
     public Color getColor()
@@ -43,53 +57,123 @@ public class DrawingPanel extends JPanel
     
     public void pickColor()
     {
-        
+        this.color_chooser.showDialog( color_chooser, "Color Chooser", Color.BLACK);
     }
     
     public void addCircle()
     {
-        Circle circle = new Cirlce( center_screen, 20, this.getColor() );
-        this.add( circle );
+        this.center_screen = new Point2D.Double( 350, 200 );
+        Circle circle = new Circle( center_screen, 100, this.getColor() );
         this.active_shape = circle;
         this.list_shapes.add( circle );
-        circle.addMouseListener( this.shape_listener );
         
         this.repaint();
     }
     
     public void addSquare()
     {
-        Square square = new Square( center_screen, 20, this.getColor() );
-        this.add( square );
+        this.center_screen = new Point2D.Double( 350, 200 );
+        Square square = new Square( center_screen, 100, this.getColor() );
         this.active_shape = square;
         this.list_shapes.add( square );
-        square.addMouseListener( this.shape_listener );
         
         this.repaint();
     }
     
-    public void paintComponent( Graphics2D g )
+    public void paintComponent( Graphics g )
     {
+        Graphics2D g2 = ( Graphics2D ) g;
+        super.paintComponent( g );
         
+        if( isPicked )
+        {
+            for( int i = list_shapes.size() - 1; i >= 0; i--)
+            {
+                if( list_shapes.get( i ) != active_shape )
+                {
+                    this.list_shapes.get( i ).draw( g2, true );
+                }
+            }
+            this.active_shape.draw( g2, false );
+        }
+        else
+        {
+            for( int i = list_shapes.size() - 1; i >= 0; i--)
+            {
+                this.list_shapes.get( i ).draw( g2, true );
+            }
+        }
     }
     
     
-    class MouseShapeListener implements MouseListener
+    class MouseDrawListener implements MouseListener
     {
-        public void mouseClicked( MouseEvent event )
+        private Point2D.Double mouse_loc;
+        private Point2D.Double shape_loc;
+        
+        
+        public void mouseClicked( MouseEvent event ){}
+
+        public void mouseReleased( MouseEvent event )
         {
-            this.active_shape = this.event;
-            this.isPicked = true;
-            Point2D.Double mouse_loc = new Point2D.Double( this.event.getX(), this.event.getY() );
-            this.active_shape.isInside( mouse_loc );
+            isPicked = false;
+            isMoving = false;
+            isStrech = false;
+            
+            repaint();
         }
 
-        public void mouseReleased( MouseEvent event ) {}
-
-        public void mousePressed( MouseEvent event ) {}
-
+        public void mousePressed( MouseEvent event )
+        {
+            mouse_loc = new Point2D.Double( event.getX(), event.getY() );
+            
+            for( Shape cur : list_shapes )
+            {
+                if( cur.isInside( mouse_loc ) )
+                {
+                    active_shape = cur;
+                    isMoving = true;
+                    isPicked = true;
+                }
+                else if( cur.isOnBorder( mouse_loc ) )
+                {
+                    active_shape = cur;
+                    isStrech = true;
+                    isPicked = true;
+                }
+            }
+            
+            repaint();
+        }
+        
         public void mouseEntered( MouseEvent event ) {}
 
         public void mouseExited( MouseEvent event ) {}
+    }
+    
+    
+    class MouseMotListener implements MouseMotionListener
+    {
+        private Point2D.Double mouse_loc;
+        private Point2D.Double prev_mouse_loc;
+        
+        
+        public void mouseDragged( MouseEvent event )
+        {
+            mouse_loc = new Point2D.Double( event.getX(), event.getY() );
+            
+            if( isMoving )
+            {
+                active_shape.move( mouse_loc.getX(), mouse_loc.getY() );
+            }
+            else if( isStrech )
+            {
+                active_shape.setRadius( mouse_loc.getX() - active_shape.getCenter().getX() );
+            }
+            
+            repaint();
+        }
+        
+        public void mouseMoved( MouseEvent event ){}
     }
 }

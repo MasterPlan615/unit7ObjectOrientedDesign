@@ -23,7 +23,7 @@ public class ControlPanel extends JPanel
         this.add_circle = new JButton( "Add Circle" );
         this.add_square = new JButton( "Add Square" );
         
-        //this.canvas.getColor();
+        this.canvas.getColor();
         
         this.add( this.pick_color );
         this.add( this.add_circle );
@@ -44,12 +44,12 @@ public class ControlPanel extends JPanel
     {
         public void mouseClicked( MouseEvent event )
         {
-            this.canvas.pickColor();
+            canvas.pickColor();
         }
 
         public void mouseReleased( MouseEvent event ) {}
 
-        public void mousePressed( MouseEvent event ) {}
+        public void mousePressed( MouseEvent event ){}
 
         public void mouseEntered( MouseEvent event ) {}
 
@@ -61,12 +61,12 @@ public class ControlPanel extends JPanel
     {
         public void mouseClicked( MouseEvent event )
         {
-            this.canvas.addCircle();
+            canvas.addCircle();
         }
 
         public void mouseReleased( MouseEvent event ) {}
 
-        public void mousePressed( MouseEvent event ) {}
+        public void mousePressed( MouseEvent event ){}
 
         public void mouseEntered( MouseEvent event ) {}
 
@@ -78,12 +78,12 @@ public class ControlPanel extends JPanel
     {
         public void mouseClicked( MouseEvent event )
         {
-            this.canvas.addSquare();
+            canvas.addSquare();
         }
 
         public void mouseReleased( MouseEvent event ) {}
 
-        public void mousePressed( MouseEvent event ) {}
+        public void mousePressed( MouseEvent event ){}
 
         public void mouseEntered( MouseEvent event ) {}
 
