@@ -26,7 +26,15 @@ public abstract class Shape
         return this.radius;
     }
     
-    public abstract void move( double x, double y );
+    public Color getColor()
+    {
+        return this.color;
+    }
+    
+    public void move( double x, double y )
+    {
+        this.getCenter().setLocation( x, y );
+    }
     
     public void setRadius( double r )
     {

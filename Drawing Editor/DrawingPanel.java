@@ -57,7 +57,7 @@ public class DrawingPanel extends JPanel
     
     public void pickColor()
     {
-        this.color_chooser.showDialog( color_chooser, "Color Chooser", Color.BLACK);
+        this.color_chooser.setColor( this.color_chooser.showDialog( color_chooser, "Color Chooser", Color.BLACK) );
     }
     
     public void addCircle()
@@ -98,9 +98,23 @@ public class DrawingPanel extends JPanel
         }
         else
         {
-            for( int i = list_shapes.size() - 1; i >= 0; i--)
+            if( this.active_shape != null )
             {
-                this.list_shapes.get( i ).draw( g2, true );
+                for( int i = list_shapes.size() - 1; i >= 0; i--)
+                {
+                    if( list_shapes.get( i ) != active_shape )
+                    {
+                        this.list_shapes.get( i ).draw( g2, true );
+                    }
+                }
+                this.active_shape.draw( g2, true );
+            }
+            else
+            {
+                for( int i = list_shapes.size() - 1; i >= 0; i--)
+                {
+                    this.list_shapes.get( i ).draw( g2, true );
+                }
             }
         }
     }
@@ -155,16 +169,16 @@ public class DrawingPanel extends JPanel
     class MouseMotListener implements MouseMotionListener
     {
         private Point2D.Double mouse_loc;
-        private Point2D.Double prev_mouse_loc;
         
         
         public void mouseDragged( MouseEvent event )
         {
             mouse_loc = new Point2D.Double( event.getX(), event.getY() );
-            
+
             if( isMoving )
             {
-                active_shape.move( mouse_loc.getX(), mouse_loc.getY() );
+                active_shape.move( mouse_loc.getX() - ( active_shape.getRadius()/2 ),
+                    mouse_loc.getY() - ( active_shape.getRadius()/2 ));
             }
             else if( isStrech )
             {

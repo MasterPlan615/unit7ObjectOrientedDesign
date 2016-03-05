@@ -12,11 +12,10 @@ public class DrawingEditor extends JFrame
         this.setSize( FRAME_WIDTH, FRAME_HEIGHT );
         
         DrawingPanel canvas = new DrawingPanel();
-        this.add( canvas , BorderLayout.CENTER );
-        //this.setContentPane( canvas );
+        this.add( canvas, BorderLayout.CENTER );
         
         ControlPanel controls = new ControlPanel( canvas );
-        this.add( controls , BorderLayout.SOUTH );
+        this.add( controls, BorderLayout.SOUTH );
         
         this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         this.setVisible( true );

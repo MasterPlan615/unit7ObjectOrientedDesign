@@ -3,6 +3,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import java.awt.BorderLayout;
 
 
 public class ControlPanel extends JPanel
@@ -24,10 +25,12 @@ public class ControlPanel extends JPanel
         this.add_square = new JButton( "Add Square" );
         
         this.canvas.getColor();
+        cur_color.setBackground( canvas.getColor() );
         
-        this.add( this.pick_color );
-        this.add( this.add_circle );
-        this.add( this.add_square );
+        this.add( this.pick_color, BorderLayout.WEST );
+        this.add( this.add_circle, BorderLayout.CENTER );
+        this.add( this.add_square, BorderLayout.EAST );
+        this.add( this.cur_color, BorderLayout.CENTER );
         
         MouseListener pick_color_listener = new MousePCListener();
         this.pick_color.addMouseListener( pick_color_listener );
@@ -45,6 +48,7 @@ public class ControlPanel extends JPanel
         public void mouseClicked( MouseEvent event )
         {
             canvas.pickColor();
+            cur_color.setBackground( canvas.getColor() );
         }
 
         public void mouseReleased( MouseEvent event ) {}

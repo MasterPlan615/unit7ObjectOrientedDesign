@@ -7,6 +7,8 @@ import java.awt.geom.Rectangle2D;
 public class Square extends Shape
 {   
     private Rectangle2D.Double rec;
+    private Rectangle2D.Double rec2;
+    
     
     public Square( Point2D.Double cen, double rad, Color col )
     {
@@ -15,27 +17,34 @@ public class Square extends Shape
     
     public void draw( Graphics2D g, boolean filled )
     {
+        Graphics2D g2 = ( Graphics2D ) g;
+        
         rec = new Rectangle2D.Double( super.getCenter().getX(), super.getCenter().getY(), super.getRadius(), super.getRadius() );
-        g.draw( rec );
+        rec2 = new Rectangle2D.Double( super.getCenter().getX(), super.getCenter().getY(), ( super.getRadius()-( super.getRadius()*0.1 ) ),
+            ( super.getRadius()-( super.getRadius()*0.1 ) ) );
+        g2.setColor( super.getColor() );
+        g2.draw( rec );
         if( filled )
         {
-            g.fill( rec );
+            g2.fill( rec );
         }
-    }
-   
-    public void move( double x, double y )
-    {
-        super.getCenter().setLocation( x, y );
     }
     
     public boolean isInside( Point2D.Double point )
     {
-        return rec.contains( point.getX(), point.getY() );
+        if( rec2.contains( point.getX(), point.getY() ) && rec.contains( point.getX(), point.getY() ) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public boolean isOnBorder( Point2D.Double point )
     {
-        if( point.getX() == ( super.getCenter().getX() + super.getRadius() ) && point.getY() == ( super.getCenter().getY() + super.getRadius() ) )
+        if( rec.contains( point.getX(), point.getY() ) && !rec2.contains( point.getX(), point.getY() ) )
         {
             return true;
         }
